@@ -55,79 +55,13 @@ export class LoginComponent {
     this.http.post(url, {}, options).map(res => res.json()).subscribe(res => {
       console.log('Success. Result from query:');
       console.log(res.result);
-      this.signIn(res.result)
-        .then(() => {
           // return this.navCtrl.setRoot(EventsListPage);
-        })
+          this.router.navigate(['pages/dashboard'])
         .catch(err => {
           console.log('got error: ', err);
           return err;
         })
-        .done();
-    }, err => {
-      console.log(err);
-      console.log(err['_body']);
-      console.log('error logging in: ' + err);
-      // if((JSON.parse(err['_body'])['error'] === 'Email not verified')){
-      //     let alert = this.resendAuthenticationPrompt({username: this.user.username, password: this.user.password, provider: 'standard'});
-      //     return alert.present();
-      // }
-      // const alert = this.alertCtrl.create({
-      //   title: 'Error logging in',
-      //   subTitle: 'Failed to log in due to: ' + JSON.parse(err['_body'])['error'],
-      //   buttons: [
-      //     {
-      //       text: 'OK',
-      //       role: 'cancel',
-      //       handler: data => {
-      //         console.log('Ok clicked');
-      //       }
-      //     }
-      //   ]
-      // });
-      // alert.present()
-      //   .catch( err => {
-      //     return err;
-      //   });
       return;
-    });
-  }
-
-
-  public signIn(userData) {
-    // let nav = this.navCtrl;
-    // console.log(this.navCtrl);
-    // console.log(this.nav);
-    // // console.log(this.navCtrl);
-    // nav.setRoot(EventsListPage)
-    //     .catch(err=>{
-    //         console.log('error: '+err);
-    //     });
-    const originalScope = this;
-    return Q.Promise(function(resolve, reject, notify){
-      console.log('signing in user');
-      console.log(userData);
-      if (!userData.sessionToken) {
-        console.log('no token');
-        reject('no session token');
-      }
-      localStorage.set('userSession', userData)
-        .then(res => {
-          // console.log(originalScope);
-          // console.log(originalScope.navCtrl);
-          // return originalScope.navCtrl.setRoot(EventsListPage)
-          return resolve('resolved');
-        })
-        // .then(res=>{
-        //     console.log('success on navctrl');
-        //     //Some logic if successful
-        //     resolve('resolved');
-        // })
-        .catch(err => {
-          console.log('could not sign in');
-          console.log(err);
-          reject(err);
-        });
     });
   }
 
