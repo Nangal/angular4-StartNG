@@ -11,6 +11,7 @@ export const routes: Routes = [
 			{
 				path: 'dashboard',
 				loadChildren: './dashboard/dashboard.module#DashboardModule',
+				data: { breadcrumb: 'Dashboard' }
 			},
 			{
 				path: '',

@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-    <li *ngIf="router.url != '/pages/dashboard'" class="breadcrumb-item">
+    <li *ngIf="router.url != '/dashboard'" class="breadcrumb-item">
       <a routerLink="/" (click)="closeSubMenus()"><i class="fa fa-home mr-2"></i>Home</a>
     </li>
     <li *ngFor="let breadcrumb of breadcrumbs; let i = index;" class="breadcrumb-item">
@@ -7,7 +7,7 @@
             {{breadcrumb.name}}
         </a>
         <span [hidden]="i != (breadcrumbs.length - 1)">
-            <i *ngIf="router.url == '/pages/dashboard'" class="fa fa-home mr-2"></i>
+            <i *ngIf="router.url == '/dashboard'" class="fa fa-home mr-2"></i>
             <b>{{breadcrumb.name}}</b>
         </span>
     </li>
