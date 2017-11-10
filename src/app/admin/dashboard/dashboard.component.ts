@@ -38,6 +38,53 @@ export class DashboardComponent {
     }
   }
 
+  public future_events_table_settings = {
+    selectMode: 'single',  //single|multi
+    hideHeader: false,
+    hideSubHeader: true,
+    noDataMessage: 'No data found',
+    actions: {
+      columnTitle: 'Actions',
+      add: false,
+      edit: false,
+      delete: false,
+      custom: [],
+      position: 'right' // left|right
+    },
+    columns: {     
+      id: {
+        title: 'ID',
+        editable: false,
+        width: '60px',
+        type: 'html',
+        valuePrepareFunction: (value) => { return '<div class="text-center">' + value + '</div>'; }       
+      },
+      Name: {
+        title: 'Name',
+        type: 'string',
+        filter: true
+      },
+      StartDateTime: {
+        title: 'StartDateTime',
+        type: 'string',
+        filter: true
+      },
+      EndDateTime: {
+        title: 'EndDateTime',
+        type: 'string',
+        filter: true
+      },
+      Category: {
+        title: 'Category',
+        type: 'string'
+      }
+    },
+    pager: {
+      display: true,
+      perPage: 10
+    }
+  };
+
   private Event;
   public Event_Future;
 
@@ -46,7 +93,13 @@ export class DashboardComponent {
   ) {
     dashboardService.event().subscribe(
       res => {
-        this.Event = res.result.Event;
+        this.Event = res.result.Event.sort(function(a, b) {
+          if (moment(a.StartDateTime.iso).isAfter(b.StartDateTime.iso)) {
+            return 1
+          } else {
+            return -1
+          }
+        });
         this.past_events_update();
         this.future_events_update();
       },
@@ -67,6 +120,13 @@ export class DashboardComponent {
     this.Event_Future = this.Event.filter(function(e, i) {
       return moment().isBefore(e.StartDateTime.iso) && e.Status === 'Published'
     });
+
+    this.Event_Future.forEach(function(e, i) {
+      e.id = i;
+      e.Category = e.Category || 'default';
+      e.StartDateTime = moment(e.StartDateTime.iso).format('hh:mm MMM DD YYYY');
+      e.EndDateTime = moment(e.EndDateTime.iso).format('hh:mm MMM DD YYYY');
+    })
 
     this.future_events_lb = [{ name: 'Future Events', value: this.Event_Future.length }];
 

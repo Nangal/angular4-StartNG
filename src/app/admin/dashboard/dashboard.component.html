@@ -24,40 +24,24 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-lg-12 mb-4">
-		<div widget class="card border-0 box-shadow">
-			<div class="card-header transparent border-0 text-muted">
-				<h5 class="mb-0">Future Events</h5>
-				<div class="widget-controls"> 
-					<a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
-					<a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
-					<a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
-				</div>        
-			</div>
-			<div class="card-block pt-0 widget-body">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Name</th>
-							<th>StartDateTime</th>
-              <th>EndDateTime</th>
-              <th>Category</th>
-						</tr>
-					</thead>
-					<tbody>
-
-						<tr *ngFor="let ef of Event_Future">
-							<th scope="row">{{index}}</th>
-							<td>{{ef.Name}}</td>
-							<td>{{dateFormat(ef.StartDateTime.iso)}}</td>
-              <td>{{dateFormat(ef.EndDateTime.iso)}}</td>
-              <td>{{ef.Category||'Default'}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+<div widget class="card border-0 box-shadow">
+  <div class="card-header transparent border-0 text-muted">
+    <h5 class="mb-0">Future Events</h5>
+    <div class="widget-controls"> 
+      <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+      <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+      <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+      <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>  
+      <a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
+    </div>
+  </div>
+  <div class="card-block pt-0 widget-body">
+    <div class="table-responsive">
+      <ng2-smart-table
+        class="table table-hover"
+        [settings]="future_events_table_settings" 
+        [source]="Event_Future" >
+      </ng2-smart-table>
+    </div>
+  </div>
 </div>
