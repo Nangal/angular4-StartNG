@@ -2,6 +2,9 @@ import { Menu } from './menu.model';
 
 export const verticalMenuItems = [ 
     new Menu (1, 'Dashboard', '/dashboard', null, 'tachometer', null, false, 0),
+    new Menu (2, 'Event', null, null, 'calendar', null, true, 0),
+    new Menu (3, 'List', '/event/list', null, 'list', null, false, 2),
+    new Menu (4, 'Create', '/event/create', null, 'calendar-o', null, false, 2)
     // new Menu (2, 'Membership', '/pages/membership', null, 'users', null, false, 0), 
     // new Menu (3, 'UI Features', null, null, 'laptop', null, true, 0),   
     // new Menu (4, 'Buttons', '/pages/ui/buttons', null, 'keyboard-o', null, false, 3),  

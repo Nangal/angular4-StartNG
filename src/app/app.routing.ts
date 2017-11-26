@@ -1,5 +1,4 @@
-import { Routes, RouterModule, PreloadAllModules  } from '@angular/router';
-import { ModuleWithProviders } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 export const routes: Routes = [
   {

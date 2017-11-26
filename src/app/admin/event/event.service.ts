@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class DashboardService {
+export class EventService {
 
   private event_url;
   private headers: Headers;

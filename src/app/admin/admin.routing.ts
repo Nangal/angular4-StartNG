@@ -14,6 +14,11 @@ export const routes: Routes = [
 				data: { breadcrumb: 'Dashboard' }
 			},
 			{
+				path: 'event',
+				loadChildren: './event/event.module#EventModule',
+				data: { breadcrumb: 'Event' }
+			},
+			{
 				path: '',
 				redirectTo: 'dashboard',
 				pathMatch: 'full'

@@ -91,7 +91,7 @@ export class DashboardComponent {
   constructor(
     @Inject('dashboardService') private dashboardService:any,
   ) {
-    dashboardService.event().subscribe(
+    dashboardService.tables().subscribe(
       res => {
         this.Event = res.result.Event.sort(function(a, b) {
           if (moment(a.StartDateTime.iso).isAfter(b.StartDateTime.iso)) {
@@ -110,6 +110,7 @@ export class DashboardComponent {
   }
 
   past_events_update() {
+    console.log(this.Event);
     let past_events = this.Event.filter(function(e, i) {
       return moment().isAfter(e.StartDateTime.iso) && e.Status === 'Finished'
     });
