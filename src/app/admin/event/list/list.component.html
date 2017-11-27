@@ -1,121 +1,112 @@
-<div class="row">
-  <div class="col-9 mb-4">
-		<div widget class="card border-0 box-shadow">
-			<div class="card-header transparent border-0 text-muted">
-				<h5 class="mb-0">Pie Chart</h5>
-				<div class="widget-controls"> 
-					<a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
-					<a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
-					<a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
-				</div>        
-			</div>
-			<div class="card-block widget-body">              
-				<div class="w-100 h-300p">
-					<ngx-charts-pie-chart
-						[scheme]="statistics_category_config.colorScheme"
-						[results]="statistics_category_data"
-						[legend]="statistics_category_config.showLegend"
-						[explodeSlices]="statistics_category_config.explodeSlices"
-						[labels]="statistics_category_config.showLabels"
-						[doughnut]="statistics_category_config.doughnut"
-						[gradient]="statistics_category_config.gradient">
-					</ngx-charts-pie-chart>          
+<div *ngIf="loading">
+	<i class="fa fa-refresh fa-spin fa-fw"></i>
+	Loading...
+</div>
+<div *ngIf="!loading">
+	<div class="row" >
+		<div class="col-9 mb-4">
+			<div widget class="card border-0 box-shadow">
+				<div class="card-header transparent border-0 text-muted">
+					<h5 class="mb-0">Pie Chart</h5>
+					<div class="widget-controls"> 
+						<a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+						<a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+						<a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
+					</div>        
+				</div>
+				<div class="card-block widget-body">              
+					<div class="w-100 h-300p">
+						<ngx-charts-pie-chart
+							[scheme]="statistics_category_config.colorScheme"
+							[results]="statistics_category_data"
+							[legend]="statistics_category_config.showLegend"
+							[explodeSlices]="statistics_category_config.explodeSlices"
+							[labels]="statistics_category_config.showLabels"
+							[doughnut]="statistics_category_config.doughnut"
+							[gradient]="statistics_category_config.gradient">
+						</ngx-charts-pie-chart>          
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
-    <div class="w-100 h-100p">
-      <ngx-charts-number-card
-        [scheme]="statistics_order_reservation_config.scheme"
-        [textColor]="'#fff'"
-        [innerPadding]="0"
-        [results]="statistics_order_reservation_data"
-        [valueFormatting]="infoValueFormat"
-        [labelFormatting]="infoLabelFormat">
-      </ngx-charts-number-card>     
-		</div>
-		<div class="w-100 h-100p">
-      <ngx-charts-number-card
-        [scheme]="statistics_guest_reservation_config.scheme"
-        [textColor]="'#fff'"
-        [innerPadding]="0"
-        [results]="statistics_guest_reservation_data"
-        [valueFormatting]="infoValueFormat"
-        [labelFormatting]="infoLabelFormat">
-      </ngx-charts-number-card>     
-    </div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
-		<div class="form-group">
-			<label for="input-11">Name</label>
-			<input type="text" class="form-control" id="name" (change)="action_filter()">
+		<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
+			<div class="w-100 h-100p">
+				<ngx-charts-number-card
+					[scheme]="statistics_order_reservation_config.scheme"
+					[textColor]="'#fff'"
+					[innerPadding]="0"
+					[results]="statistics_order_reservation_data"
+					[valueFormatting]="infoValueFormat"
+					[labelFormatting]="infoLabelFormat">
+				</ngx-charts-number-card>     
+			</div>
+			<div class="w-100 h-100p">
+				<ngx-charts-number-card
+					[scheme]="statistics_guest_reservation_config.scheme"
+					[textColor]="'#fff'"
+					[innerPadding]="0"
+					[results]="statistics_guest_reservation_data"
+					[valueFormatting]="infoValueFormat"
+					[labelFormatting]="infoLabelFormat">
+				</ngx-charts-number-card>     
+			</div>
 		</div>
 	</div>
-	<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
-		<div class="form-group">
-			<label for="category">Category</label>
-			<select type="text" class="form-control" id="category" (change)="action_filter()">
-				<option value="">All</option>
-				<option *ngFor="let c of categories">
-					{{c}}
-				</option>
-			</select>
+	<div class="row">
+		<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
+			<div class="form-group">
+				<input type="text" class="form-control" id="name" (change)="action_filter()" placeholder="Name">
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
+			<div class="form-group">
+				<select type="text" class="form-control" id="category" (change)="action_filter()">
+					<option value="">All</option>
+					<option *ngFor="let c of categories">
+						{{c}}
+					</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
+			<div class="form-group">
+				<select type="text" class="form-control" id="status" (change)="action_filter()">
+					<option value="">All</option>
+					<option *ngFor="let s of status">
+						{{s}}
+					</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
+			<div class="form-group">
+				<input type="datetime-local" class="form-control" value="2011-08-19T13:45:00" id="start-date" (change)="action_filter()" style="padding: 0.4rem 0.75rem;">
+			</div>
+		</div>
+		<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
+			<div class="form-group">
+				<input type="datetime-local" class="form-control" value="2011-08-19T13:45:00" id="end-date" (change)="action_filter()" style="padding: 0.4rem 0.75rem;">
+			</div>
 		</div>
 	</div>
-	<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
-		<div class="form-group">
-			<label for="status">Status</label>
-			<select type="text" class="form-control" id="status" (change)="action_filter()">
-				<option value="">All</option>
-				<option *ngFor="let s of status">
-					{{s}}
-				</option>
-			</select>
+	<div widget class="card border-0 box-shadow">
+		<div class="card-header transparent border-0 text-muted">
+			<div class="widget-controls"> 
+				<a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+				<a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+				<a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+				<a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>  
+				<a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
+			</div>
 		</div>
-	</div>
-	<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
-		<div class="form-group">
-			<label for="start-date">Start Date</label>
-			<input type="datetime-local" class="form-control" value="2011-08-19T13:45:00" id="start-date" (change)="action_filter()" style="padding: 0.4rem 0.75rem;">
+		<div class="card-block pt-0 widget-body">
+			<div class="table-responsive">
+				<ng2-smart-table
+					class="table table-hover"
+					[settings]="events_table_settings" 
+					[source]="filtered_events" >
+				</ng2-smart-table>
+			</div>
 		</div>
-	</div>
-	<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 pl-2 pr-2 mb-4">
-		<div class="form-group">
-			<label for="end-date">End Date</label>
-			<input type="datetime-local" class="form-control" value="2011-08-19T13:45:00" id="end-date" (change)="action_filter()" style="padding: 0.4rem 0.75rem;">
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-xl-12">
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>StartDateTime</th>
-					<th>EndDateTime</th>
-					<th>Category</th>
-					<th>Status</th>
-					<th>TicketType</th>
-					<th>TimeSlotted</th>
-					<th>MaxReservation</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let e of filtered_events">
-					<td>{{e.Name}}</td>
-					<td>{{dateFormat2(e.StartDateTime)}}</td>
-					<td>{{dateFormat2(e.EndDateTime)}}</td>
-					<td>{{e.Category}}</td>
-					<td>{{e.Status}}</td>
-					<td>{{e.TicketTypes}}</td>
-					<td>{{e.Timeslots}}</td>
-					<td>{{e.MaxReservationLength || 0}}</td>
-				</tr>
-			</tbody>
-		</table>
 	</div>
 </div>

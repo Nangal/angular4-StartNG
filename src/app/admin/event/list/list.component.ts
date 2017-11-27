@@ -67,6 +67,59 @@ export class EventListComponent {
     }
   }
 
+  public events_table_settings = {
+    selectMode: 'single',  //single|multi
+    hideHeader: false,
+    hideSubHeader: true,
+    noDataMessage: 'No data found',
+    actions: {
+      columnTitle: 'Actions',
+      add: false,
+      edit: false,
+      delete: false,
+      custom: [],
+      position: 'right' // left|right
+    },
+    columns: {
+      Name: {
+        title: 'Name',
+        type: 'string',
+        filter: true
+      },
+      StartDateTime: {
+        title: 'StartDateTime',
+        type: 'string',
+        filter: true
+      },
+      EndDateTime: {
+        title: 'EndDateTime',
+        type: 'string',
+        filter: true
+      },
+      Category: {
+        title: 'Category',
+        type: 'string'
+      },
+      Status: {
+        title: 'Status',
+        type: 'string'
+      },
+      TicketTypes: {
+        title: 'TicketTypes',
+        type: 'string'
+      },
+      MaxReservationLength: {
+        title: 'MaxReservation',
+        type: 'string'
+      }
+    },
+    pager: {
+      display: true,
+      perPage: 10
+    }
+  };
+
+  public loading = true;
   public events;
   public reservations;
   public ticket_types;
@@ -83,15 +136,10 @@ export class EventListComponent {
   ) {
     eventService.tables().subscribe(
       res => {
-        console.log(res.result);
         this.events = res.result.Event;
         this.reservations = res.result.Reservation;
         this.ticket_types = res.result.TicketType;
         this.init_data();
-        this.init_filters();
-        this.statistics_category();
-        this.statistics_order_reservation();
-        this.statistics_guest_reservation();
       },
       err => {
         console.log('err');
@@ -104,6 +152,7 @@ export class EventListComponent {
       e.StartDateTime = this.dateFormat(e.StartDateTime.iso);
       e.EndDateTime = this.dateFormat(e.EndDateTime.iso);
       if (!e.Category) e.Category = 'Default'
+      if (!e.MaxReservationLength) e.MaxReservationLength = 'none'
       let tickets = [];
       Object.keys(e.TicketTypeTables).forEach(k => {
         let t = this.ticket_types.filter(t => t.objectId === k)[0];
@@ -123,6 +172,16 @@ export class EventListComponent {
       if (a > b) return -1
       return 1
     })[0]
+
+    this.loading = false;
+
+    let scope = this;
+    setTimeout(function() {
+      scope.init_filters();
+      scope.statistics_category();
+      scope.statistics_order_reservation();
+      scope.statistics_guest_reservation();
+    }, 1);
   }
 
   init_filters() {
