@@ -11,9 +11,8 @@ export class DashboardService {
   constructor(
     private http: Http,
     @Inject('appService') private appService:any
-  ){
+  ) {
     this.event_url = appService.apiUrl + 'functions/fetchDBTables';
-    
     this.headers = new Headers({
       'X-Parse-Application-Id' : appService.XParseApplicationId,
       'X-Parse-REST-API-Key': appService.XParseRESTAPIKey,
