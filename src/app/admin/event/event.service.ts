@@ -36,7 +36,11 @@ export class EventService {
       body: test_body
     });
 
-    return this.http.post(this.event_url, {}, options).map(res => res.json());
+    return this.http.post(
+      this.event_url,
+      {},
+      options
+    ).map(res => res.json());
   }
 
 }
